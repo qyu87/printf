@@ -6,7 +6,7 @@
 /*   By: qfoo <qfoo@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 19:58:33 by qfoo              #+#    #+#             */
-/*   Updated: 2025/07/21 11:29:59 by qfoo             ###   ########.fr       */
+/*   Updated: 2025/07/21 21:02:43 by qfoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,42 @@ void	ft_putnbr(long num)
 	}
 }
 
-void	ft_putdec(double num)
-{
-	char	c;
+// void	ft_putdec(double num)
+// {
+// 	char	c;
 
-	if (num < 0)
-	{
-		ft_putchar('-');
-		num *= -1;
-	}
+// 	if (num < 0)
+// 	{
+// 		ft_putchar('-');
+// 		num *= -1;
+// 	}
+	
+
+// 	if (num > 0 && num < 1)
+// 	{
+// 		num 
+// 	}
 	
 	
+// }
+
+void	ft_puthex(unsigned long num)
+{
+	char	*hex = "0123456789ABCDEF";
+
+	if (num > 16)
+		ft_puthex(num / 16);
+	ft_putchar(hex[num % 16]);
+}
+
+
+void	ft_putptr(void *ptr)
+{
+	unsigned long	address;
+
+	address = (unsigned long)ptr;
+	write(1, "0x", 2);
+	ft_puthex(address);
 }
 
 int	check_specifier(char c, va_list arg_list)
@@ -82,18 +107,18 @@ int	check_specifier(char c, va_list arg_list)
 		ft_putchar((char)va_arg(arg_list, int));
 	else if (c == 's')
 		ft_putstr(va_arg(arg_list, char *));
-	// else if (c == 'p')
-	// 	ft_putptr(va_arg(arg_list, void *));
+	else if (c == 'p')
+		ft_putptr(va_arg(arg_list, void *));
 	// else if (c == 'd')
 	// 	ft_putdec((double)(va_arg(arg_list, int)));
 	else if (c == 'i')
 		ft_putnbr(va_arg(arg_list, int));
-	// else if (c == 'u')
-	// 	ft_putundec(va_arg(arg_list, unsigned int));
-	// else if (c == 'x')
-	// 	ft_putlhexa(va_arg(arg_list, char *));
-	// else if (c == 'X')
-	// 	ft_putuhexa(va_arg(arg_list, char *));
+	else if (c == 'u')
+		ft_putnbr(va_arg(arg_list, unsigned int));
+	else if (c == 'x')
+		ft_putstr(va_arg(arg_list, char *));
+	else if (c == 'X')
+		ft_putstr(va_arg(arg_list, char *));
 	else if (c == '%')
 		ft_putchar('%');
 	else
@@ -116,7 +141,7 @@ int ft_printf(const char *format, ...)
 			i++;
 		}
 		else
-			ft_putchar(format[i]);
+			return (0);
 		i++;
 	}
 	va_end(arg_list);
