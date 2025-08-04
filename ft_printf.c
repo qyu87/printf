@@ -6,12 +6,11 @@
 /*   By: qfoo <qfoo@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 19:58:33 by qfoo              #+#    #+#             */
-/*   Updated: 2025/08/04 18:02:19 by qfoo             ###   ########.fr       */
+/*   Updated: 2025/08/04 18:13:38 by qfoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 // 1. create variable arg list (va list)
 // 2. initialise arg list (va start)
@@ -47,11 +46,11 @@ int	check_specifier(char c, va_list arg_list)
 	return (count);
 }
 
-int ft_printf(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
-	int i;
-	int	count;
-	va_list arg_list;
+	int		i;
+	int		count;
+	va_list	arg_list;
 
 	va_start(arg_list, format);
 	i = 0;
@@ -71,15 +70,17 @@ int ft_printf(const char *format, ...)
 	return (count);
 }
 
-int	main(void)
-{
-	int	count = 0;
-	int	c = '!';
-	// char	*str = "nice";
-	int	num = 123456789;
+// #include <stdio.h>
 
-	count = ft_printf("mine = %d%c\n", num, c);
-	printf("ori. = %d%c\n", num, c);
-	printf("%d", count);
-	return (0);
-}
+// int	main(void)
+// {
+// 	int	count = 0;
+// 	int	c = '!';
+// 	// char	*str = "nice";
+// 	int	num = 123456789;
+
+// 	count = ft_printf("mine = %d%c\n", num, c);
+// 	printf("ori. = %d%c\n", num, c);
+// 	printf("%d", count);
+// 	return (0);
+// }

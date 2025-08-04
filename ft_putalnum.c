@@ -6,7 +6,7 @@
 /*   By: qfoo <qfoo@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 10:56:07 by qfoo              #+#    #+#             */
-/*   Updated: 2025/08/04 17:37:30 by qfoo             ###   ########.fr       */
+/*   Updated: 2025/08/04 18:12:44 by qfoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,23 @@ int	ft_putstr(char *c)
 	return (i);
 }
 
-int count_digit(long num)
+int	count_digit(long num)
 {
-    int count;
-    
-    count = 0;
-    if (num < 0)
-    {
-        count++;
-        num = -num;
-    }
-    while (num > 9)
-    {
-        num /= 10;
-        count++;
-    }
-    count++;
-    return (count);
+	int	count;
+
+	count = 0;
+	if (num < 0)
+	{
+		count++;
+		num = -num;
+	}
+	while (num > 9)
+	{
+		num /= 10;
+		count++;
+	}
+	count++;
+	return (count);
 }
 
 int	ft_putnbr(long num)
@@ -60,7 +60,7 @@ int	ft_putnbr(long num)
 	char	c;
 	int		count;
 
-    count = count_digit(num);
+	count = count_digit(num);
 	if (num < 0)
 	{
 		ft_putchar('-');

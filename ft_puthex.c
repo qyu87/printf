@@ -6,7 +6,7 @@
 /*   By: qfoo <qfoo@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 10:48:21 by qfoo              #+#    #+#             */
-/*   Updated: 2025/08/04 16:54:38 by qfoo             ###   ########.fr       */
+/*   Updated: 2025/08/04 18:19:04 by qfoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 
 int	ft_puthex(unsigned long num, char c)
 {
-	char	*hex = "0123456789ABCDEF";
-	int	count;
+	char	*hex;
+	int		count;
 
 	count = 0;
-    if (c == 'x')
-    {
+	hex = "0123456789ABCDEF";
+	if (c == 'x')
+	{
 		hex = "0123456789abcdef";
-	} 
-	if (num > 16)
+	}
+	if (num >= 16)
 	{
 		count += ft_puthex((num / 16), c);
 	}
@@ -34,14 +35,14 @@ int	ft_puthex(unsigned long num, char c)
 int	ft_putptr(void *ptr)
 {
 	unsigned long	address;
-	int	count;
+	int				count;
 
 	address = (unsigned long)ptr;
-    if (!ptr)
-    {
-        write(1, "(nil)", 5);
-        return (5);
-    }
+	if (!ptr)
+	{
+		write(1, "(nil)", 5);
+		return (5);
+	}
 	write(1, "0x", 2);
 	count = ft_puthex(address, 'x') + 2;
 	return (count);
