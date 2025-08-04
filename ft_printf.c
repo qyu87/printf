@@ -25,82 +25,6 @@
 // 4. write everything (write then meet specifier then write spec)
 // 5. return +ve if correct
 
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-void	ft_putstr(char *c)
-{
-	int	i;
-
-	i = 0;
-	while (c[i])
-	{
-		ft_putchar(c[i]);
-		i++;
-	}
-}
-
-void	ft_putnbr(long num)
-{
-	char	c;
-
-	if (num < 0)
-	{
-		ft_putchar('-');
-		num *= -1;
-	}
-	if (num > 9)
-	{
-		ft_putnbr(num / 10);
-		ft_putnbr(num % 10);
-	}
-	if (num >= 0 && num <= 9)
-	{
-		c = num + '0';
-		ft_putchar(c);
-	}
-}
-
-// void	ft_putdec(double num)
-// {
-// 	char	c;
-
-// 	if (num < 0)
-// 	{
-// 		ft_putchar('-');
-// 		num *= -1;
-// 	}
-	
-
-// 	if (num > 0 && num < 1)
-// 	{
-// 		num 
-// 	}
-	
-	
-// }
-
-void	ft_puthex(unsigned long num)
-{
-	char	*hex = "0123456789ABCDEF";
-
-	if (num > 16)
-		ft_puthex(num / 16);
-	ft_putchar(hex[num % 16]);
-}
-
-
-void	ft_putptr(void *ptr)
-{
-	unsigned long	address;
-
-	address = (unsigned long)ptr;
-	write(1, "0x", 2);
-	ft_puthex(address);
-}
-
 int	check_specifier(char c, va_list arg_list)
 {
 	if (c == 'c')
@@ -109,16 +33,14 @@ int	check_specifier(char c, va_list arg_list)
 		ft_putstr(va_arg(arg_list, char *));
 	else if (c == 'p')
 		ft_putptr(va_arg(arg_list, void *));
-	// else if (c == 'd')
-	// 	ft_putdec((double)(va_arg(arg_list, int)));
-	else if (c == 'i')
+	else if (c == 'd' || c == 'i')
 		ft_putnbr(va_arg(arg_list, int));
 	else if (c == 'u')
-		ft_putnbr(va_arg(arg_list, unsigned int));
+		ft_putui(va_arg(arg_list, unsigned int));
 	else if (c == 'x')
-		ft_putstr(va_arg(arg_list, char *));
+		ft_puthex(va_arg(arg_list, char *), c);
 	else if (c == 'X')
-		ft_putstr(va_arg(arg_list, char *));
+		ft_puthex(va_arg(arg_list, char *), c);
 	else if (c == '%')
 		ft_putchar('%');
 	else
@@ -129,15 +51,18 @@ int	check_specifier(char c, va_list arg_list)
 int ft_printf(const char *format, ...)
 {
 	int i;
+	int	count;
 	va_list arg_list;
 
 	va_start(arg_list, format);
 	i = 0;
+	count = 0;
 	while (format[i])
 	{
 		if (format[i] == '%')
 		{
 			check_specifier(format[i + 1], arg_list);
+			count += check_specifier(format[i + 1], arg_list);
 			i++;
 		}
 		else
@@ -145,7 +70,8 @@ int ft_printf(const char *format, ...)
 		i++;
 	}
 	va_end(arg_list);
-	return (0);
+	count += i;
+	return (count);
 }
 
 int	main(void)
@@ -156,6 +82,5 @@ int	main(void)
 
 	ft_printf("mine = hello%c, %s, %i%%end\n", c, str, num);
 	printf("ori. = hello%c, %s, %i%%end\n", c, str, num);
-	// ft_putnbr(num);
 	return (0);
 }
