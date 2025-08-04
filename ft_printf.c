@@ -6,13 +6,11 @@
 /*   By: qfoo <qfoo@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 19:58:33 by qfoo              #+#    #+#             */
-/*   Updated: 2025/07/21 21:02:43 by qfoo             ###   ########.fr       */
+/*   Updated: 2025/08/04 17:42:00 by qfoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdarg.h>
+#include "ft_printf.h"
 #include <stdio.h>
 
 // 1. create variable arg list (va list)
@@ -38,13 +36,13 @@ int	check_specifier(char c, va_list arg_list)
 	else if (c == 'u')
 		ft_putui(va_arg(arg_list, unsigned int));
 	else if (c == 'x')
-		ft_puthex(va_arg(arg_list, char *), c);
+		ft_puthex(va_arg(arg_list, unsigned int), c);
 	else if (c == 'X')
-		ft_puthex(va_arg(arg_list, char *), c);
+		ft_puthex(va_arg(arg_list, unsigned int), c);
 	else if (c == '%')
 		ft_putchar('%');
-	else
-		ft_putchar(c);
+	// else
+	// 	ft_putchar(c);
 	return (0);
 }
 
@@ -62,11 +60,14 @@ int ft_printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			check_specifier(format[i + 1], arg_list);
-			count += check_specifier(format[i + 1], arg_list);
 			i++;
+			count--;
 		}
 		else
-			return (0);
+		{
+			ft_putchar(format[i]);
+			count++;
+		}
 		i++;
 	}
 	va_end(arg_list);
@@ -76,11 +77,13 @@ int ft_printf(const char *format, ...)
 
 int	main(void)
 {
+	int	count = 0;
 	int	c = '!';
-	char	*str = "nice";
-	int	num = -123456789;
+	// char	*str = "nice";
+	int	num = 123456789;
 
-	ft_printf("mine = hello%c, %s, %i%%end\n", c, str, num);
-	printf("ori. = hello%c, %s, %i%%end\n", c, str, num);
+	count = ft_printf("mine = %d%c\n", num, c);
+	printf("ori. = %d%c\n", num, c);
+	printf("%d", count);
 	return (0);
 }

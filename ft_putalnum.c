@@ -1,14 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_putalnum.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qfoo <qfoo@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 10:56:07 by qfoo              #+#    #+#             */
-/*   Updated: 2025/08/04 10:56:07 by qfoo             ###   ########.fr       */
+/*   Updated: 2025/08/04 17:37:30 by qfoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_printf.h"
 
 int	ft_putchar(char c)
 {
@@ -53,7 +55,6 @@ int count_digit(long num)
     return (count);
 }
 
-
 int	ft_putnbr(long num)
 {
 	char	c;
@@ -97,9 +98,11 @@ int	ft_putui(unsigned long num)
 	return (count);
 }
 
+// #include <stdio.h>
+
 // int	main(void)
 // {
-// 	long	num = -98765432;
+// 	long	num = -12345678;
 // 	int		count;
 
 // 	count = ft_putnbr(num);
